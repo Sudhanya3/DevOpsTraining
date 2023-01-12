@@ -1,3 +1,7 @@
+Parameters:
+  NameOfService:
+    Description: "Name of service this stack is used for"
+    Type: String
 Mappings:
   RegionMap:
     us-east-1:
@@ -16,10 +20,7 @@ Resources:
           - AMI
       Tags:
         - Key:  "Name"
-          Value: !Join
-            - " - "
-            -   -   "EC2 to be spinned up in"
-                -   !Ref  AWS::Region
+          Value: !Ref NameOfService
       SecurityGroups:
         - !Ref MySecurityGroup
   MySecurityGroup:
