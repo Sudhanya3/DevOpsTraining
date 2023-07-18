@@ -1,0 +1,12 @@
+pipeline{
+    agent any
+    stages{
+        stage('CF Stack Creation'){
+          steps{
+            sh '''
+            aws cloudformation create-stack --stack-name EC2 --template-body file://cf.yaml --region "us-east-1"
+            '''
+          }  
+        }
+    }
+}
