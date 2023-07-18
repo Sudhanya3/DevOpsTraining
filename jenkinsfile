@@ -12,7 +12,7 @@ pipeline{
           steps{
             sh '''
             aws --version
-            //aws cloudformation create-stack --stack-name EC2 --template-body file://cf.yaml --region "us-east-1"
+            
             '''
           }  
         }
