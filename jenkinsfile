@@ -1,9 +1,10 @@
+@Library('github.com/releaseworks/jenkinslib') _
 pipeline {
     agent any
     stages {
         stage('Submit Stack') {
             steps {
-                withCredentials([string(credentialsId: 'aws_access_key', variable: 'access-key'), string(credentialsId: 'aws_secret_key', variable: 'secret-key')]) {
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'aws-key', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY']]){
                     sh '''
                     aws configure list
                     
