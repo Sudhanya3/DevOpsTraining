@@ -1,20 +1,12 @@
-pipeline{
+pipeline {
     agent any
-    stages{
-        stage('AWS CLI install'){
-            steps '''
-            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-            unzip awscliv2.zip
-            sudo ./aws/install
-            '''
-        }
-        stage('CF Stack Creation'){
-          steps{
-            sh '''
-            aws --version
-            
-            '''
-          }  
+    stages {
+        stage('Submit Stack') {
+            steps {
+                withCredentials([usernameColonPassword(credentialsId: 'aws', variable: 'aws-auth')]) {
+                    sh "aws cloudformation create-stack --stack-name s3bucket-test --template-body file://cf.json --region 'us-east-1'"
+                }
+            }
         }
     }
 }
