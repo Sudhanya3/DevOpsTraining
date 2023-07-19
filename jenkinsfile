@@ -3,12 +3,12 @@ pipeline {
     stages {
         stage('Submit Stack') {
             steps {
-                withCredentials([usernameColonPassword(credentialsId: 'aws', variable: 'aws')]) {
+                withCredentials([string(credentialsId: 'aws_access_key', variable: 'access-key'), string(credentialsId: 'aws_secret_key', variable: 'secret-key')]) {
                     sh '''
                     aws configure list
-                    aws cloudformation create-stack --stack-name s3bucket-test --template-body file://cf.json --region 'us-east-1'
+                    
                     '''
-                }
+                }   
             }
         }
     }
